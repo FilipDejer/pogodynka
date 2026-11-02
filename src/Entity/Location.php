@@ -70,12 +70,12 @@ class Location
 
     public function getLongitude(): ?string
     {
-        return $this->decimal;
+        return $this->longitude;
     }
 
-    public function setLongitude(string $decimal): static
+    public function setLongitude(string $longitude): static
     {
-        $this->decimal = $decimal;
+        $this->longitude = $longitude;
 
         return $this;
     }
