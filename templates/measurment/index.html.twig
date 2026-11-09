@@ -7,15 +7,15 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Celcius</th>
-                <th>Humidity</th>
-                <th>Wind_speed</th>
-                <th>Cloudiness</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Celcius</th>
+            <th>Humidity</th>
+            <th>Wind_speed</th>
+            <th>Cloudiness</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for measurment in measurments %}
@@ -27,8 +27,13 @@
                 <td>{{ measurment.windSpeed }}</td>
                 <td>{{ measurment.cloudiness }}</td>
                 <td>
-                    <a href="{{ path('app_measurment_show', {'id': measurment.id}) }}">show</a>
-                    <a href="{{ path('app_measurment_edit', {'id': measurment.id}) }}">edit</a>
+                    {% if is_granted('ROLE_MEASURMENT_SHOW') %}
+                        <a href="{{ path('app_measurment_show', {'id': measurment.id}) }}">show</a>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_MEASURMENT_EDIT') %}
+                        <a href="{{ path('app_measurment_edit', {'id': measurment.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -39,5 +44,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_measurment_new') }}">Create new</a>
+    {% if is_granted('ROLE_MEASURMENT_NEW') %}
+        <a href="{{ path('app_measurment_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

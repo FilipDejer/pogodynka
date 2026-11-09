@@ -10,10 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 #[Route('/measurment')]
 final class MeasurmentController extends AbstractController
 {
+    #[IsGranted('ROLE_MEASURMENT_INDEX')]
     #[Route(name: 'app_measurment_index', methods: ['GET'])]
     public function index(MeasurmentRepository $measurmentRepository): Response
     {
@@ -22,6 +25,7 @@ final class MeasurmentController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_MEASURMENT_NEW')]
     #[Route('/new', name: 'app_measurment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +46,7 @@ final class MeasurmentController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_MEASURMENT_SHOW')]
     #[Route('/{id}', name: 'app_measurment_show', methods: ['GET'])]
     public function show(Measurment $measurment): Response
     {
@@ -50,6 +55,7 @@ final class MeasurmentController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_MEASURMENT_EDIT')]
     #[Route('/{id}/edit', name: 'app_measurment_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Measurment $measurment, EntityManagerInterface $entityManager): Response
     {
@@ -68,6 +74,7 @@ final class MeasurmentController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_MEASURMENT_DELETE')]
     #[Route('/{id}', name: 'app_measurment_delete', methods: ['POST'])]
     public function delete(Request $request, Measurment $measurment, EntityManagerInterface $entityManager): Response
     {
